@@ -16,19 +16,6 @@ function createInjector() {
     value: (key: string) => {
       const factory = __map.has(key) ? __map.get(key) : undefined;
       if (typeof factory !== 'undefined') {
-        factory.fn(...(factory.args ?? []));
-      }
-      return undefined;
-    },
-  });
-
-  Object.defineProperty(_object, 'get', {
-    writable: false,
-    configurable: false,
-    enumerable: false,
-    value: (key: string) => {
-      const factory = __map.has(key) ? __map.get(key) : undefined;
-      if (typeof factory !== 'undefined') {
         return factory.fn(...(factory.args ?? []));
       }
       return undefined;

@@ -1,4 +1,5 @@
 import { getInjector } from './ioc';
+import { WebStorage } from './storage';
 
 const injector = getInjector();
 
@@ -10,4 +11,8 @@ injector.register('local', () => {
 injector.register('session', () => {
   return window.sessionStorage;
 });
+
+injector.register('Webstorage', (storage: Storage) => {
+  return new WebStorage(storage);
+}, injector.get('session'));
 // #endregion Enrégistrement des dépendances

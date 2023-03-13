@@ -1,4 +1,4 @@
-class WebStorage {
+export class WebStorage {
   constructor(private storage: Storage) {}
 
   getItem(key: string) {
