@@ -5,18 +5,8 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { PipesModule } from './pipes';
 import { interval, map } from 'rxjs';
 import { getInjector } from './ioc';
-
-class WebStorage {
-  constructor(private storage: Storage) {}
-
-  getItem(key: string) {
-    return JSON.parse(this.storage.getItem(key));
-  }
-
-  setItem(key: string, value: unknown) {
-    this.storage.setItem(key, JSON.stringify(value));
-  }
-}
+import { WebStorage } from './storage';
+import './create-dependencies';
 
 @Component({
   selector: 'my-app',
@@ -43,7 +33,7 @@ export class App implements OnInit {
   // date!: Date;
 
   ngOnInit(): void {
-    const webStorage = new WebStorage(getInjector().get<Storage>('local'));
+    const webStorage = new webStorage(getInjector().get<Storage>('session'));
     webStorage.setItem('my-item', ['Angular']);
     // this.date$.pipe(takeUntil(this._destroy$)).subscribe(state => this.date = state);
   }
