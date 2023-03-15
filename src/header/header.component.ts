@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
       .header {
         margin: 0;
         padding: 8px 16px;
-        width: 100%;
+        width: auto;
         height: 56px;
         background-color: hsl(217.5, 55.04%, 46.44%);
         display: flex;

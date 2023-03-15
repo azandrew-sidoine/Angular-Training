@@ -22,7 +22,7 @@ import { BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
         text-align: center;
       }
       .container {
-        margin: 16px;
+        padding: 16px;
       }
     `,
   ],
