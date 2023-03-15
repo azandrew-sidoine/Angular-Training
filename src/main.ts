@@ -2,15 +2,15 @@ import 'zone.js/dist/zone';
 import { Component } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { SharedModule } from './shared.module';
+import { PostsModule } from './posts';
+import { HeaderModule } from './header';
 
 @Component({
   selector: 'my-app',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, PostsModule, HeaderModule],
   template: `
-    <h1>Publications!</h1>
-
-    <app-posts></app-posts>
+    <app-header [name]="'Publication'"></app-header>
   `,
   styles: [
     `
