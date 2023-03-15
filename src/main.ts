@@ -4,7 +4,7 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { SharedModule } from './shared.module';
 import { PostsModule } from './posts';
 import { HeaderModule } from './header';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
 
 @Component({
   selector: 'my-app',
@@ -12,7 +12,6 @@ import { Subject } from 'rxjs';
   imports: [SharedModule, PostsModule, HeaderModule],
   template: `
     <app-header [name]="'Publication'"></app-header>
-
     <div class="container">
       <app-post-add></app-post-add>
     </div>
@@ -33,24 +32,69 @@ export class App {
   private _subject = new Subject<string>();
   _subject$ = this._subject.asObservable();
 
+  private _behaviorSubject = new BehaviorSubject<string>('Paul');
+  _behaviorSubject$ = this._behaviorSubject.asObservable();
+
+  private _replaySubject = new ReplaySubject<string>();
+  _replaySubject$ = this._replaySubject.asObservable(); // AsyncSubject
+
   constructor() {
     let count = 0;
-    const interval = setInterval(() => {
-      if (count >= 5) {
-        clearInterval(interval);
-      }
-      const value = `Fernanda${Array.from(new Array(count).keys())
-        .map(() => '!')
-        .join('')}`;
-      console.log('Produced value: ', value);
-      this._subject.next(value);
-      count += 1;
-    }, 1000);
+    // const interval = setInterval(() => {
+    //   if (count >= 1) {
+    //     clearInterval(interval);
+    //   }
+    //   const value = `Fernanda${Array.from(new Array(count).keys())
+    //     .map(() => '!')
+    //     .join('')}`;
+    //   console.log('Produced value: ', value);
+    //   this._subject.next(value);
+    //   count += 1;
+    // }, 1000);
 
+    // setTimeout(() => {
+    //   this._subject$.subscribe((state) =>
+    //     console.log('Received value: ', state)
+    //   );
+
+    //   this._behaviorSubject$.subscribe((state) =>
+    //     console.log('Received Behavior subject value: ', state)
+    //   );
+    // }, 4000);
+
+    // setTimeout(() => {
+    //   this._behaviorSubject.next('Fernanda');
+    // }, 6000);
+
+    // setTimeout(() => {
+    //   console.log('Last state value: ', this._behaviorSubject.getValue());
+    //   this._behaviorSubject$.subscribe((value) =>
+    //     console.log('After 8 seconds:', value)
+    //   );
+    // }, 8000);
 
     setTimeout(() => {
-      this._subject$.subscribe((state) => console.log('Received value: ', state));
+      this._replaySubject.next('Christophe!');
     }, 2000);
+    setTimeout(() => {
+      this._replaySubject.next('Benjamin!');
+    }, 3000);
+
+    setTimeout(() => {
+      this._replaySubject.next('Harry!');
+    }, 4000);
+
+    setTimeout(() => {
+      this._replaySubject$.subscribe((value) =>
+        console.log('After 5 seconds: ', value)
+      );
+    }, 5000);
+
+    setTimeout(() => {
+      this._replaySubject$.subscribe((value) =>
+        console.log('After 10 seconds: ', value)
+      );
+    }, 10000);
   }
 }
 
