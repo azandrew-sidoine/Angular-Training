@@ -73,28 +73,28 @@ export class App {
     //   );
     // }, 8000);
 
-    setTimeout(() => {
-      this._replaySubject.next('Christophe!');
-    }, 2000);
-    setTimeout(() => {
-      this._replaySubject.next('Benjamin!');
-    }, 3000);
+    // setTimeout(() => {
+    //   this._replaySubject.next('Christophe!');
+    // }, 2000);
+    // setTimeout(() => {
+    //   this._replaySubject.next('Benjamin!');
+    // }, 3000);
 
-    setTimeout(() => {
-      this._replaySubject.next('Harry!');
-    }, 4000);
+    // setTimeout(() => {
+    //   this._replaySubject.next('Harry!');
+    // }, 4000);
 
-    setTimeout(() => {
-      this._replaySubject$.subscribe((value) =>
-        console.log('After 5 seconds: ', value)
-      );
-    }, 5000);
+    // setTimeout(() => {
+    //   this._replaySubject$.subscribe((value) =>
+    //     console.log('After 5 seconds: ', value)
+    //   );
+    // }, 5000);
 
-    setTimeout(() => {
-      this._replaySubject$.subscribe((value) =>
-        console.log('After 10 seconds: ', value)
-      );
-    }, 10000);
+    // setTimeout(() => {
+    //   this._replaySubject$.subscribe((value) =>
+    //     console.log('After 10 seconds: ', value)
+    //   );
+    // }, 10000);
   }
 }
 
