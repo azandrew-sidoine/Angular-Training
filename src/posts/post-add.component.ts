@@ -28,7 +28,7 @@ export class PostAddComponent {
   // #region component outputs
 
   // #region component input
-  @Input() placeholder: string = 'Search...';
+  @Input() placeholder: string = 'Ecrire une nouvelle publication...';
   // #endregion component output
 
   private _state: StateType = {
