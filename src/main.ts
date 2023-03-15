@@ -11,7 +11,7 @@ import { BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
   standalone: true,
   imports: [SharedModule, PostsModule, HeaderModule],
   template: `
-    <app-header [name]="'Publication'"></app-header>
+    <app-header [name]="'Publications'"></app-header>
     <div class="container">
       <app-post-add></app-post-add>
     </div>
