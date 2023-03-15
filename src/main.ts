@@ -39,7 +39,7 @@ export class App {
   _replaySubject$ = this._replaySubject.asObservable(); // AsyncSubject
 
   constructor() {
-    let count = 0;
+    // let count = 0;
     // const interval = setInterval(() => {
     //   if (count >= 1) {
     //     clearInterval(interval);
@@ -51,45 +51,37 @@ export class App {
     //   this._subject.next(value);
     //   count += 1;
     // }, 1000);
-
     // setTimeout(() => {
     //   this._subject$.subscribe((state) =>
     //     console.log('Received value: ', state)
     //   );
-
     //   this._behaviorSubject$.subscribe((state) =>
     //     console.log('Received Behavior subject value: ', state)
     //   );
     // }, 4000);
-
     // setTimeout(() => {
     //   this._behaviorSubject.next('Fernanda');
     // }, 6000);
-
     // setTimeout(() => {
     //   console.log('Last state value: ', this._behaviorSubject.getValue());
     //   this._behaviorSubject$.subscribe((value) =>
     //     console.log('After 8 seconds:', value)
     //   );
     // }, 8000);
-
     // setTimeout(() => {
     //   this._replaySubject.next('Christophe!');
     // }, 2000);
     // setTimeout(() => {
     //   this._replaySubject.next('Benjamin!');
     // }, 3000);
-
     // setTimeout(() => {
     //   this._replaySubject.next('Harry!');
     // }, 4000);
-
     // setTimeout(() => {
     //   this._replaySubject$.subscribe((value) =>
     //     console.log('After 5 seconds: ', value)
     //   );
     // }, 5000);
-
     // setTimeout(() => {
     //   this._replaySubject$.subscribe((value) =>
     //     console.log('After 10 seconds: ', value)
