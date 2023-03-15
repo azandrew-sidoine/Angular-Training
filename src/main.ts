@@ -11,11 +11,18 @@ import { HeaderModule } from './header';
   imports: [SharedModule, PostsModule, HeaderModule],
   template: `
     <app-header [name]="'Publication'"></app-header>
+
+    <div class="container">
+      <app-post-add></app-post-add>
+    </div>
   `,
   styles: [
     `
       h1 {
         text-align: center;
+      }
+      .container {
+        margin: 16px;
       }
     `,
   ],
