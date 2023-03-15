@@ -16,13 +16,12 @@ import { Component, Input } from '@angular/core';
         align-content: space-around;
         flex-basic: 1;
         color: #fff;
-
       }
 
       .header-left {
         display: flex;
         justify-content: center;
-        align-item: center;
+        align-items: center;
       }
 
       .branding {
