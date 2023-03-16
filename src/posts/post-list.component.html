@@ -1,7 +1,9 @@
 <ng-container *ngIf="posts">
   <ng-container *ngFor="let post of posts">
-    <app-post-card [clickable]="true">
-      <span id="header" card-header>{{ post.title }}</span>
-    </app-post-card>
+    <div class="card-container">
+      <app-post-card [clickable]="true">
+        <span id="header" card-header>{{ post.title }}</span>
+      </app-post-card>
+    </div>
   </ng-container>
 </ng-container>

@@ -39,7 +39,7 @@
 }
 /* Tranformation styles */
 .card.clickable:hover {
-  transform: translateY(-3px);
+  transform: translateY(3px);
   box-shadow: 0 0.15rem 0 0
     var(--card-clickble-box-shadow-color, hsl(198deg, 100%, 32%));
   border-width: var(--card-clickble-border-width, 0.05rem);
