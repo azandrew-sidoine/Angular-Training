@@ -1,5 +1,7 @@
 <ng-container *ngIf="posts">
   <ng-container *ngFor="let post of posts">
-    <p>{{ post.title }}</p>
+    <app-post-card>
+      <span id="header" card-header>{{ post.title }}</span>
+    </app-post-card>
   </ng-container>
 </ng-container>

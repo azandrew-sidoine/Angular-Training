@@ -1,4 +1,4 @@
-input.post-add {
+input[type="text"].post-add {
   padding: var(--post-add-padding, 0.7rem 0.3rem);
   position: relative;
   width: var(--post-add-width, 100%);

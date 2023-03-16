@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, timer, tap, map } from 'rxjs';
 import { Post } from './types';
 
@@ -18,6 +19,9 @@ const POSTS: Post[] = [
   },
 ];
 
+@Injectable({
+  providedIn: 'root'
+})
 export class PostsService {
   _post$: BehaviorSubject<Post[]> = new BehaviorSubject<Post[]>([]);
   posts$ = this._post$.asObservable();

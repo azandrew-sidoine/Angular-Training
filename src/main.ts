@@ -1,10 +1,11 @@
 import 'zone.js/dist/zone';
-import { Component } from '@angular/core';
+import { Component, SkipSelf } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { SharedModule } from './shared.module';
 import { PostsModule } from './posts';
 import { HeaderModule } from './header';
-import { BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, ReplaySubject, Subject } from 'rxjs';
+import { PostsService } from './posts/post.service';
 
 @Component({
   selector: 'my-app',
@@ -26,7 +27,7 @@ import { BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
       }
     `,
   ],
-  providers: [],
+  // providers: [PostsService],
 })
 export class App {
   private _subject = new Subject<string>();
@@ -38,7 +39,15 @@ export class App {
   private _replaySubject = new ReplaySubject<string>();
   _replaySubject$ = this._replaySubject.asObservable(); // AsyncSubject
 
-  constructor() {
+  constructor(@SkipSelf() private posts: PostsService) {
+    setTimeout(async () => {
+      await lastValueFrom(this.posts.addPost({
+        title: 'Paul qui regarde derrière!',
+        comments: [],
+      }));
+    }, 5000);
+
+    this.posts.posts$.subscribe((state) => console.log('Posts: ', state));
     // let count = 0;
     // const interval = setInterval(() => {
     //   if (count >= 1) {
@@ -91,3 +100,7 @@ export class App {
 }
 
 bootstrapApplication(App);
+  // {
+  // // providers: [...PostsModule.forRoot().providers]
+  // }
+// );

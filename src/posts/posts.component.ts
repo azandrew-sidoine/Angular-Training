@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, SkipSelf } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { PostsService } from './post.service';
 
@@ -12,14 +12,14 @@ import { PostsService } from './post.service';
       }
     `,
   ],
-  providers: [PostsService],
+  // providers: [PostsService],
 })
 export class PostsComponent implements AfterViewInit {
   // #region Component state
   posts$ = this.posts.posts$;
   // #endregion Component states
 
-  constructor(private posts: PostsService) {}
+  constructor(@SkipSelf() private posts: PostsService) {}
 
   async ngAfterViewInit() {
     // firstValueFrom

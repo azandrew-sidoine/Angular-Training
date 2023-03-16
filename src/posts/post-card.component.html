@@ -1,5 +1,9 @@
 <div id="card" [class]="cssClass" [ngClass]="ngClass">
   <div class="card-header">
+    <!-- Selection par attribute: [attribute] -->
+    <!-- Selection par classe: .nom-class-css  -->
+    <!-- Selection par id: #nom-id  -->
+    <!-- Selection par nom de balise: nom-balise  -->
     <ng-content select="[card-header]"></ng-content>
   </div>
   <div class="card-block">
