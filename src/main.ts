@@ -1,11 +1,9 @@
 import 'zone.js/dist/zone';
-import { Component, SkipSelf } from '@angular/core';
+import { Component } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { SharedModule } from './shared.module';
 import { PostsModule } from './posts';
 import { HeaderModule } from './header';
-import { BehaviorSubject, lastValueFrom, ReplaySubject, Subject } from 'rxjs';
-import { PostsService } from './posts/post.service';
 
 @Component({
   selector: 'my-app',
@@ -30,24 +28,24 @@ import { PostsService } from './posts/post.service';
   // providers: [PostsService],
 })
 export class App {
-  private _subject = new Subject<string>();
-  _subject$ = this._subject.asObservable();
+  // private _subject = new Subject<string>();
+  // _subject$ = this._subject.asObservable();
 
-  private _behaviorSubject = new BehaviorSubject<string>('Paul');
-  _behaviorSubject$ = this._behaviorSubject.asObservable();
+  // private _behaviorSubject = new BehaviorSubject<string>('Paul');
+  // _behaviorSubject$ = this._behaviorSubject.asObservable();
 
-  private _replaySubject = new ReplaySubject<string>();
-  _replaySubject$ = this._replaySubject.asObservable(); // AsyncSubject
+  // private _replaySubject = new ReplaySubject<string>();
+  // _replaySubject$ = this._replaySubject.asObservable(); // AsyncSubject
 
-  constructor(@SkipSelf() private posts: PostsService) {
-    setTimeout(async () => {
-      await lastValueFrom(this.posts.addPost({
-        title: 'Paul qui regarde derrière!',
-        comments: [],
-      }));
-    }, 5000);
+  constructor() {
+    // setTimeout(async () => {
+    //   await lastValueFrom(this.posts.addPost({
+    //     title: 'Paul qui regarde derrière!',
+    //     comments: [],
+    //   }));
+    // }, 5000);
 
-    this.posts.posts$.subscribe((state) => console.log('Posts: ', state));
+    // this.posts.posts$.subscribe((state) => console.log('Posts: ', state));
     // let count = 0;
     // const interval = setInterval(() => {
     //   if (count >= 1) {
