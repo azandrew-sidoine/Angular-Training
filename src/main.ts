@@ -13,7 +13,7 @@ import { BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
   template: `
     <app-header [name]="'Publications'"></app-header>
     <div class="container">
-      <app-post-add></app-post-add>
+      <app-posts></app-posts>
     </div>
   `,
   styles: [
