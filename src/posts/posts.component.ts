@@ -24,5 +24,14 @@ export class PostsComponent implements AfterViewInit {
   async ngAfterViewInit() {
     // firstValueFrom
     await lastValueFrom(this.posts.getAll());
+
+    // setInterval(async () => {
+    //   await lastValueFrom(
+    //     this.posts.addPost({
+    //       title: 'Paul dis que Fernanda ment!',
+    //       comments: [],
+    //     })
+    //   );
+    // }, 2000);
   }
 }
