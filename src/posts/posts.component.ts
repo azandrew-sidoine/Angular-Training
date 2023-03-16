@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
 import { PostsService } from './post.service';
 
 @Component({
@@ -9,14 +10,19 @@ import { PostsService } from './post.service';
       .post-list-container {
 
       }
-    `
+    `,
   ],
-  providers: [PostsService]
+  providers: [PostsService],
 })
-export class PostsComponent {
+export class PostsComponent implements AfterViewInit {
   // #region Component state
-  post$ = this.posts.posts$;
+  posts$ = this.posts.posts$;
   // #endregion Component states
 
   constructor(private posts: PostsService) {}
+
+  async ngAfterViewInit() {
+    // firstValueFrom
+    await lastValueFrom(this.posts.getAll());
+  }
 }
