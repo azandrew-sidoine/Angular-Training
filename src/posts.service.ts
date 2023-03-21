@@ -1,4 +1,4 @@
-import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import { Injectable, InjectionToken } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 
 // Création du token d'injection:
@@ -23,10 +23,6 @@ type StateType = typeof _defaultState;
 export class PostsService {
   _posts$ = new BehaviorSubject<StateType>(_defaultState);
   public readonly posts$ = this._posts$.asObservable();
-
-  constructor(@Inject(POST_URL) @Optional() private url?: string, fake: boolean = true) {
-    console.log(url, fake);
-  }
 
   getAll() {
     // Faire une appel API vers le serveur
