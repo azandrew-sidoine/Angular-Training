@@ -12,9 +12,9 @@ import { Component, Input } from '@angular/core';
         height: 56px;
         background-color: hsl(217.5, 55.04%, 46.44%);
         display: flex;
-        align-item: flex-start;
+        align-items: flex-start;
         align-content: space-around;
-        flex-basic: 1;
+        flex-basis: 1;
         color: #fff;
       }
 

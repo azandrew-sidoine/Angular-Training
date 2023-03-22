@@ -2,8 +2,9 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  HostListener,
   Input,
-  Output,
+  Output
 } from '@angular/core';
 
 type StateType = {
@@ -31,10 +32,20 @@ export class PostAddComponent {
   @Input() placeholder: string = 'Ecrire une nouvelle publication...';
   // #endregion component output
 
+  @HostListener('keypress', ['$event'])
+  onKeyPress(e: KeyboardEvent) {
+    // On s'assure que le input est pas vide
+    const value = (this._state.value ?? '').trim();
+    if ((e.code?.toLocaleLowerCase() === 'enter') && value !== '') {
+      this.dispatchValueChange();
+    }
+  }
+
   private _state: StateType = {
     value: '',
     disabled: false,
   };
+  
 
   /**
    * Creates component instances
@@ -49,7 +60,7 @@ export class PostAddComponent {
       return;
     }
     this.setState((state) => ({ ...state, value }));
-    this.dispatchValueChange();
+    // this.dispatchValueChange();
     event?.stopPropagation();
   }
 

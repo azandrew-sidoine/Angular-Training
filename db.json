@@ -1,0 +1,19 @@
+{
+  "posts": [
+    {
+      "title": "Hello World!",
+      "id": 1
+    },
+    {
+      "title": "Fernanda & Paul voient du bleue",
+      "comments": [],
+      "id": 2
+    },
+    {
+      "title": "Pendant que Paul me dit, lui il voit claire",
+      "comments": [],
+      "id": 3
+    }
+  ],
+  "comments": []
+}

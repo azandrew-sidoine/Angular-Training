@@ -1,6 +1,7 @@
-import { Component, AfterViewInit, SkipSelf } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
+import { AfterViewInit, Component } from '@angular/core';
+import { lastValueFrom, Observable } from 'rxjs';
 import { PostsService } from './post.service';
+import { Post } from './types';
 
 @Component({
   selector: 'app-posts',
@@ -16,10 +17,12 @@ import { PostsService } from './post.service';
 })
 export class PostsComponent implements AfterViewInit {
   // #region Component state
-  posts$ = this.posts.posts$;
+  posts$!: Observable<Post[]>;
   // #endregion Component states
 
-  constructor(@SkipSelf() private posts: PostsService) {}
+  constructor(/*@SkipSelf()*/ private posts: PostsService) {
+    this.posts$ = this.posts.posts$;
+  }
 
   async ngAfterViewInit() {
     // firstValueFrom
@@ -33,5 +36,10 @@ export class PostsComponent implements AfterViewInit {
     //     })
     //   );
     // }, 2000);
+  }
+
+  async savePost(value: string) {
+    // Crée une promesse basé sur l'observable lorsque ce dernier `complete`
+    await lastValueFrom(this.posts.addPost({title: value, comments: []}));
   }
 }

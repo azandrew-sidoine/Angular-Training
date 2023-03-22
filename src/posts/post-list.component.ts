@@ -8,7 +8,7 @@ import { Post } from './types';
     `
       .post-card-list-container {
         display: flex;
-        align-item: flex-start;
+        align-items: flex-start;
         flex-direction: row;
         flex-wrap: wrap;
       }
