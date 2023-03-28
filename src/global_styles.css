@@ -1,5 +1,6 @@
 /* Add application styles & imports to this file! */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Nunito+Sans");
 
 :root {
   --post-add-border-radius: 2;
@@ -8,12 +9,25 @@
   --post-add-border-right-width: 0.03;
   --post-add-border-top-color: hsl(198deg, 10%, 46%);
   --post-add-border-bottom-width: 0.03rem;
+  --blue: #0e0620;
+  --white: #fff;
+  --green: #2ccf6d;
 }
 
 body,
-* {
-  font-family: 'Montserrat', sans-serif;
+html {
+  font-family: "Montserrat", sans-serif;
   margin: 0;
   padding: 0;
   font-size: 16px;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  background: #fff;
+  /* font-family: "Noto Sans JP", sans-serif; */
+  font-weight: 400;
+}
+* {
+  margin: 0;
+  padding: 0;
 }

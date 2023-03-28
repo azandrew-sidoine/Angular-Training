@@ -1,8 +1,11 @@
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
+import { App404Component } from "./404";
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from "./app.component";
 import { HeaderModule } from "./header";
+import { HomeComponent } from "./home/home.component";
 import { PostRequestInterceptor, PostsModule } from "./posts";
 import { PostsService } from "./posts/post.service";
 import { SharedModule } from "./shared.module";
@@ -24,10 +27,45 @@ import { SharedModule } from "./shared.module";
 //   }
 // }
 
+// app-routing.module.ts
+// const routes: Routes = [
+//   {
+//     // path: '',
+//     // component: HomeComponent
+
+//     // Or par redirection
+//     path: "",
+//     redirectTo: "home",
+//     pathMatch: "full",
+//   },
+//   {
+//     path: "home",
+//     component: HomeComponent,
+//   },
+//   {
+//     path: "posts",
+//     component: PostsComponent
+//   },
+//   {
+//     path: "**",
+//     component: App404Component
+//   }
+// ];
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HomeComponent, App404Component],
   exports: [AppComponent],
-  imports: [BrowserModule, SharedModule, PostsModule, HeaderModule],
+  imports: [
+    BrowserModule,
+    SharedModule,
+    PostsModule,
+    HeaderModule,
+    // RouterModule.forRoot(routes, {
+    //   useHash: true
+    // }),
+    AppRoutingModule
+    // RouterModule.forRoot(),
+  ],
   providers: [
     PostsService,
     {
