@@ -1,15 +1,15 @@
-import { AfterViewInit, Component } from '@angular/core';
-import { lastValueFrom, Observable } from 'rxjs';
-import { PostsService } from './post.service';
-import { Post } from './types';
+import { AfterViewInit, Component } from "@angular/core";
+import { Router } from "@angular/router";
+import { lastValueFrom, Observable } from "rxjs";
+import { PostsService } from "./post.service";
+import { Post } from "./types";
 
 @Component({
-  selector: 'app-posts',
-  templateUrl: './posts.component.html',
+  selector: "app-posts",
+  templateUrl: "./posts.component.html",
   styles: [
     `
       .post-list-container {
-
       }
     `,
   ],
@@ -20,7 +20,10 @@ export class PostsComponent implements AfterViewInit {
   posts$!: Observable<Post[]>;
   // #endregion Component states
 
-  constructor(/*@SkipSelf()*/ private posts: PostsService) {
+  constructor(
+    /*@SkipSelf()*/ private posts: PostsService,
+    private router: Router
+  ) {
     this.posts$ = this.posts.posts$;
   }
 
@@ -40,6 +43,11 @@ export class PostsComponent implements AfterViewInit {
 
   async savePost(value: string) {
     // Crée une promesse basé sur l'observable lorsque ce dernier `complete`
-    await lastValueFrom(this.posts.addPost({title: value, comments: []}));
+    await lastValueFrom(this.posts.addPost({ title: value, comments: [] }));
+  }
+
+  onPostClicked(event: Post) {
+    // this.router.navigateByUrl(`/posts/${event.id}`);
+    this.router.navigate(["/posts", event.id]);
   }
 }

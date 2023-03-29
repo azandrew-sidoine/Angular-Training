@@ -29,6 +29,12 @@ export class PostsService {
 
   public constructor(private httpClient: HttpClient) {}
 
+  get(id: string | number): Observable<Post> {
+    return this.posts$.pipe(
+      map((posts) => posts.find((post) => post.id.toString() === id.toString()))
+    );
+  }
+
   getAll(): Observable<boolean> {
     // return timer(1500).pipe(
     //   // tap(() => this._post$.next(POSTS)),
@@ -60,8 +66,10 @@ export class PostsService {
     // );
     return this.httpClient
       .post<Post>("http://localhost:3000/posts", _post)
-      .pipe(tap((post) => {
-        this._post$.next([...this._post$.getValue(), post])
-      }));
+      .pipe(
+        tap((post) => {
+          this._post$.next([...this._post$.getValue(), post]);
+        })
+      );
   }
 }

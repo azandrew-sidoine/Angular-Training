@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Post } from './types';
 
 @Component({
@@ -21,4 +21,10 @@ import { Post } from './types';
 })
 export class PostListComponent {
   @Input() posts: Post[];
+  @Output('post-click') postClick = new EventEmitter<Post>();
+
+
+  onPostClicked(event: Post) {
+    this.postClick.emit(event);
+  }
 }
