@@ -2,22 +2,26 @@ import { NgModule } from "@angular/core";
 import { SharedModule } from "../shared.module";
 import { PostAddComponent } from "./post-add.component";
 import { PostCardComponent } from "./post-card-component";
-import { PostDetailComponent } from './post-detail.component';
+import { PostDetailComponent } from "./post-detail.component";
 import { PostListComponent } from "./post-list.component";
+import { PostRouterOutletComponent } from "./post-router.component";
+import { PostRoutingModule } from "./post-routing.module";
 // import { PostsService } from './post.service';
 import { PostsComponent } from "./posts.component";
 
 @NgModule({
-  imports: [SharedModule],
+  imports: [SharedModule, PostRoutingModule],
   declarations: [
     PostsComponent,
     PostAddComponent,
     PostListComponent,
     PostCardComponent,
     PostDetailComponent,
+    PostRouterOutletComponent,
   ],
   exports: [PostsComponent, PostAddComponent],
   providers: [],
+  bootstrap: [PostRouterOutletComponent],
 })
 export class PostsModule {
   // static forRoot(): any {

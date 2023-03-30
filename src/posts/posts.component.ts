@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from "@angular/core";
+import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { lastValueFrom, Observable } from "rxjs";
 import { PostsService } from "./post.service";
@@ -15,7 +15,7 @@ import { Post } from "./types";
   ],
   // providers: [PostsService],
 })
-export class PostsComponent implements AfterViewInit {
+export class PostsComponent {
   // #region Component state
   posts$!: Observable<Post[]>;
   // #endregion Component states
@@ -27,19 +27,19 @@ export class PostsComponent implements AfterViewInit {
     this.posts$ = this.posts.posts$;
   }
 
-  async ngAfterViewInit() {
-    // firstValueFrom
-    await lastValueFrom(this.posts.getAll());
+  // async ngAfterViewInit() {
+  //   // // firstValueFrom
+  //   // await lastValueFrom(this.posts.getAll());
 
-    // setInterval(async () => {
-    //   await lastValueFrom(
-    //     this.posts.addPost({
-    //       title: 'Paul dis que Fernanda ment!',
-    //       comments: [],
-    //     })
-    //   );
-    // }, 2000);
-  }
+  //   // // setInterval(async () => {
+  //   // //   await lastValueFrom(
+  //   // //     this.posts.addPost({
+  //   // //       title: 'Paul dis que Fernanda ment!',
+  //   // //       comments: [],
+  //   // //     })
+  //   // //   );
+  //   // // }, 2000);
+  // }
 
   async savePost(value: string) {
     // Crée une promesse basé sur l'observable lorsque ce dernier `complete`

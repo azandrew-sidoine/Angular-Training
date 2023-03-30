@@ -1,28 +1,37 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { App404Component } from './404';
+import { App404Component } from "./404";
 import { HomeComponent } from "./home/home.component";
-import { PostDetailComponent } from './posts/post-detail.component';
-import { PostsComponent } from './posts/posts.component';
 
 const routes: Routes = [
   {
     path: "home",
     component: HomeComponent,
   },
-  {
-    path: "posts/:id",
-    component: PostDetailComponent,
-    data: {
-      posts: [{
-        title: 'Fake Post',
-        id: new Date().getTime()
-      }]
-    }
-  },
+  // {
+  //   path: "posts/:id",
+  //   component: PostDetailComponent,
+  //   data: {
+  //     posts: [{
+  //       title: 'Fake Post',
+  //       id: new Date().getTime()
+  //     }]
+  //   }
+  // },
+  // {
+  //   path: "posts",
+  //   component: PostsComponent
+  // },
   {
     path: "posts",
-    component: PostsComponent
+    loadChildren: () =>
+      import("./posts/posts.module").then((m) => m.PostsModule),
+
+    // Version Angular <= 14
+    // canLoad: [PostModuleGuard],
+
+    // Version Angular >= 15
+    // canMatch: [canMatchPostsGuard],
   },
   {
     // path: '',
@@ -35,8 +44,8 @@ const routes: Routes = [
   },
   {
     path: "**",
-    component: App404Component
-  }
+    component: App404Component,
+  },
 ];
 
 @NgModule({

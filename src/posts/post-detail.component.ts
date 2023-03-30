@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { Observable, switchMap } from "rxjs";
+import { map, Observable } from "rxjs";
 import { PostsService } from "./post.service";
 import { Post } from "./types";
 
@@ -21,21 +21,22 @@ export class PostDetailComponent implements OnDestroy {
   post$!: Observable<Post>;
 
   constructor(private route: ActivatedRoute, private posts: PostsService) {
-    console.log('Data: ',  this.route.snapshot.data);
-    console.log('URL: ', this.route.snapshot.url);
-    this.post$ = this.route.params.pipe(
-      // version - map
-      // - map est un opérateur RxJs qui prend en paramètre une fonction qui retourne une valeur simple
-      // c'est à dire une valeur qui n'est pas observable
-      // map(params => params['id']),
-      // tap((params) => {
-      //   this.subscriptions.push(this.posts.get(params["id"]).subscribe((result) => (this.post = result)));
-      // }),
-      // mergeMap - quant à accepte en paramètre une fonction qui retourne un observable
-      // switchMap() - Pareil que mergeMap mais encore mieux
-      // concatMap() - Exécute les observable dans l'ordre d'arriver
-      switchMap((params) => this.posts.get(params["id"]))
-    );
+    // console.log('Data: ',  this.route.snapshot.data);
+    // console.log('URL: ', this.route.snapshot.url);
+    this.post$ = this.route.data.pipe(map((data) => data.post));
+    // this.post$ = this.route.params.pipe(
+    //   // version - map
+    //   // - map est un opérateur RxJs qui prend en paramètre une fonction qui retourne une valeur simple
+    //   // c'est à dire une valeur qui n'est pas observable
+    //   // map(params => params['id']),
+    //   // tap((params) => {
+    //   //   this.subscriptions.push(this.posts.get(params["id"]).subscribe((result) => (this.post = result)));
+    //   // }),
+    //   // mergeMap - quant à accepte en paramètre une fonction qui retourne un observable
+    //   // switchMap() - Pareil que mergeMap mais encore mieux
+    //   // concatMap() - Exécute les observable dans l'ordre d'arriver
+    //   switchMap((params) => this.posts.get(params["id"]))
+    // );
   }
 
   ngOnDestroy(): void {

@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from "./app.component";
 import { HeaderModule } from "./header";
 import { HomeComponent } from "./home/home.component";
-import { PostRequestInterceptor, PostsModule } from "./posts";
+import { PostRequestInterceptor } from "./posts";
 import { PostsService } from "./posts/post.service";
 import { SharedModule } from "./shared.module";
 
@@ -58,7 +58,6 @@ import { SharedModule } from "./shared.module";
   imports: [
     BrowserModule,
     SharedModule,
-    PostsModule,
     HeaderModule,
     // RouterModule.forRoot(routes, {
     //   useHash: true
