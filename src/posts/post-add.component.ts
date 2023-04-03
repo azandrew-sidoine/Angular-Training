@@ -5,12 +5,12 @@ import {
   HostListener,
   Input,
   Output
-} from '@angular/core';
+} from "@angular/core";
 
-type StateType = {
-  value: string;
-  disabled: boolean;
-};
+// type StateType = {
+//   value: string;
+//   disabled: boolean;
+// };
 
 /**
  * @internal
@@ -18,10 +18,11 @@ type StateType = {
  */
 export type SetStateParam<T> = Partial<T> | ((state: T) => T);
 
+
 @Component({
-  selector: 'app-post-add',
-  templateUrl: './post-add.component.html',
-  styleUrls: ['./post-add.component.css'],
+  selector: "app-post-add",
+  templateUrl: "./post-add.component.html",
+  styleUrls: ["./post-add.component.css"],
 })
 export class PostAddComponent {
   // #region component outputs
@@ -29,56 +30,55 @@ export class PostAddComponent {
   // #region component outputs
 
   // #region component input
-  @Input() placeholder: string = 'Ecrire une nouvelle publication...';
+  @Input() placeholder: string = "Ecrire une nouvelle publication...";
   // #endregion component output
 
-  @HostListener('keypress', ['$event'])
+  // #region Component state
+  state: string = "";
+  // #endregion Component state
+
+  @HostListener("keypress", ["$event"])
   onKeyPress(e: KeyboardEvent) {
     // On s'assure que le input est pas vide
-    const value = (this._state.value ?? '').trim();
-    if ((e.code?.toLocaleLowerCase() === 'enter') && value !== '') {
+    const value = (this.state ?? "").trim();
+    if (e.code?.toLocaleLowerCase() === "enter" && value !== "") {
       this.dispatchValueChange();
     }
   }
-
-  private _state: StateType = {
-    value: '',
-    disabled: false,
-  };
-  
 
   /**
    * Creates component instances
    *
    */
-  constructor(private changeRef: ChangeDetectorRef) {}
-
-  onInputChange(event?: Event) {
-    const value = (event?.target as HTMLInputElement).value.trim();
-    // Case the value does not change we doe not fire any change event
-    if (value === this._state.value) {
-      return;
-    }
-    this.setState((state) => ({ ...state, value }));
-    // this.dispatchValueChange();
-    event?.stopPropagation();
+  constructor(private changeRef: ChangeDetectorRef) {
   }
 
-  onSearchClick(event?: Event) {
-    event?.preventDefault();
-    event?.stopImmediatePropagation();
-    event?.stopPropagation();
-  }
+  // onInputChange(event?: Event) {
+  //   const value = (event?.target as HTMLInputElement).value.trim();
+  //   // Case the value does not change we doe not fire any change event
+  //   if (value === this._state.value) {
+  //     return;
+  //   }
+  //   this.setState((state) => ({ ...state, value }));
+  //   // this.dispatchValueChange();
+  //   event?.stopPropagation();
+  // }
 
-  setState(state: SetStateParam<StateType>) {
-    if (typeof state === 'function') {
-      this._state = state(this._state);
-    }
-    this._state = { ...this._state, ...state };
-    this.changeRef.markForCheck();
-  }
+  // onSearchClick(event?: Event) {
+  //   event?.preventDefault();
+  //   event?.stopImmediatePropagation();
+  //   event?.stopPropagation();
+  // }
+
+  // setState(state: SetStateParam<StateType>) {
+  //   if (typeof state === "function") {
+  //     this._state = state(this._state);
+  //   }
+  //   this._state = { ...this._state, ...state };
+  //   this.changeRef.markForCheck();
+  // }
 
   private dispatchValueChange() {
-    this.valueChange.emit(this._state.value);
+    this.valueChange.emit(this.state);
   }
 }

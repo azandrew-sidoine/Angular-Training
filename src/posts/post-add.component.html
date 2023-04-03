@@ -1,9 +1,7 @@
 <input
   type="text"
   title="search form"
-  (change)="onInputChange($event)"
-  (input)="onInputChange($event)"
-  (click)="onSearchClick($event)"
   [placeholder]="placeholder"
+  [(ngModel)]="state"
   class="post-add"
 />
