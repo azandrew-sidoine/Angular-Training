@@ -22,6 +22,7 @@ input[type="text"].post-add {
   transition: border-color 200ms ease-in-out;
   outline: 0;
 }
+
 input.post-add:focus {
   border-bottom-width: var(--post-add-bottom-width, 2.5px);
   border-top: var(--post-add-border-top-width, 0) solid
@@ -47,4 +48,17 @@ input.post-add:not([readonly]) {
     no-repeat;
   background-size: 0% 100%;
   transition: background-size 200ms ease-in-out;
+}
+
+input[type="text"].ng-dirty.ng-invalid, input[type="text"].ng-touched.ng-invalid {
+  border-bottom: var(--post-add-border-bottom-width, 0.05rem) solid
+    var(--post-add-border-color, hsl(0, 74%, 52%)) !important;
+}
+
+input[type="text"]:focus.ng-dirty.ng-invalid, input[type="text"]:focus.ng-touched.ng-invalid {
+  border-image: linear-gradient(
+    to right,
+    var(--post-add-color, hsl(0, 74%, 52%)) 95%,
+    var(--post-add-color, hsl(0, 74%, 52%)) 95%
+  ) !important;
 }

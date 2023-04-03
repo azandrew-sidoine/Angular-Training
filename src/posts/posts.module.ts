@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "../shared.module";
 import { PostAddComponent } from "./post-add.component";
 import { PostCardComponent } from "./post-card-component";
@@ -12,7 +12,7 @@ import { InputModelDirective } from './directives';
 import { PostsComponent } from "./posts.component";
 
 @NgModule({
-  imports: [SharedModule, PostRoutingModule, FormsModule],
+  imports: [SharedModule, PostRoutingModule, FormsModule, ReactiveFormsModule],
   declarations: [
     PostsComponent,
     PostAddComponent,

@@ -1,11 +1,15 @@
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   EventEmitter,
   HostListener,
   Input,
-  Output
+  OnDestroy,
+  Output,
 } from "@angular/core";
+import { FormControl, Validators } from "@angular/forms";
+import { Subscription } from "rxjs";
 
 // type StateType = {
 //   value: string;
@@ -18,13 +22,15 @@ import {
  */
 export type SetStateParam<T> = Partial<T> | ((state: T) => T);
 
-
 @Component({
   selector: "app-post-add",
   templateUrl: "./post-add.component.html",
   styleUrls: ["./post-add.component.css"],
+  // Angular : Recompile ce composant, à la prochaine rendu que si
+  // les inputs de composant change, ou un observable émet
+  changeDetection: ChangeDetectionStrategy.Default,
 })
-export class PostAddComponent {
+export class PostAddComponent implements OnDestroy {
   // #region component outputs
   @Output() valueChange = new EventEmitter();
   // #region component outputs
@@ -34,13 +40,16 @@ export class PostAddComponent {
   // #endregion component output
 
   // #region Component state
-  state: string = "";
+  state = new FormControl("", Validators.required);
+  // {updateOn: 'blur'}
+  // );
+  private subscriptions: Subscription[] = [];
   // #endregion Component state
 
   @HostListener("keypress", ["$event"])
   onKeyPress(e: KeyboardEvent) {
     // On s'assure que le input est pas vide
-    const value = (this.state ?? "").trim();
+    const value = (this.state.value ?? "").trim();
     if (e.code?.toLocaleLowerCase() === "enter" && value !== "") {
       this.dispatchValueChange();
     }
@@ -51,6 +60,24 @@ export class PostAddComponent {
    *
    */
   constructor(private changeRef: ChangeDetectorRef) {
+    // this.subscriptions.push(
+    //   this.control.valueChanges
+    //     .pipe(
+    //       tap((state) => {
+    //         console.log("Control value changes: ", state);
+    //         console.log("State", this.control.status);
+    //       })
+    //     )
+    //     .subscribe()
+    // );
+
+    // setTimeout(() => {
+    //   this.control.disable();
+    // }, 2000);
+
+    // setTimeout(() => {
+    //   this.control.enable();
+    // }, 4000);
   }
 
   // onInputChange(event?: Event) {
@@ -79,6 +106,13 @@ export class PostAddComponent {
   // }
 
   private dispatchValueChange() {
-    this.valueChange.emit(this.state);
+    this.valueChange.emit(this.state.value);
+  }
+
+  ngOnDestroy(): void {
+    for (const subscription of this.subscriptions) {
+      subscription.unsubscribe();
+    }
+    this.subscriptions = [];
   }
 }
