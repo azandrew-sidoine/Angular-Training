@@ -8,8 +8,8 @@ import {
   OnDestroy,
   Output,
 } from "@angular/core";
-import { FormControl, Validators } from "@angular/forms";
-import { Subscription } from "rxjs";
+import { FormBuilder, FormControl, Validators } from "@angular/forms";
+import { Subscription, filter } from "rxjs";
 
 // type StateType = {
 //   value: string;
@@ -40,7 +40,22 @@ export class PostAddComponent implements OnDestroy {
   // #endregion component output
 
   // #region Component state
-  state = new FormControl("", Validators.required);
+  state = new FormControl(
+    "",
+    Validators.compose([
+      Validators.required,
+      Validators.maxLength(45),
+      Validators.minLength(2),
+    ])
+  );
+  // Creation d'un control par constructeur
+  // content = new FormControl("", {
+  //   updateOn: "blur",
+  //   validators: Validators.required,
+  // }); // {'required': true}
+  content =  this.builder.control("", {
+    validators: Validators.required
+  });
   // {updateOn: 'blur'}
   // );
   private subscriptions: Subscription[] = [];
@@ -49,9 +64,20 @@ export class PostAddComponent implements OnDestroy {
   @HostListener("keypress", ["$event"])
   onKeyPress(e: KeyboardEvent) {
     // On s'assure que le input est pas vide
+    if (this.state.invalid) {
+      // Si le champ state est invalid, marquer le champ comme touché
+      // pour permettre a la vue d'afficher les messages d'erreur à l'utilisateur
+      this.state.markAsTouched();
+      this.state.markAsDirty();
+      this.state.updateValueAndValidity();
+      return;
+    }
     const value = (this.state.value ?? "").trim();
     if (e.code?.toLocaleLowerCase() === "enter" && value !== "") {
       this.dispatchValueChange();
+
+      // Réinitialize le control une fois le formulaire soumis
+      this.state.reset();
     }
   }
 
@@ -59,7 +85,15 @@ export class PostAddComponent implements OnDestroy {
    * Creates component instances
    *
    */
-  constructor(private changeRef: ChangeDetectorRef) {
+  constructor(private changeRef: ChangeDetectorRef, private builder: FormBuilder) {
+    this.subscriptions.push(
+      this.state.valueChanges
+        .pipe(filter((state) => typeof state !== "undefined" && state !== null))
+        .subscribe(console.info),
+      this.content.valueChanges
+        .pipe(filter((state) => typeof state !== "undefined" && state !== null))
+        .subscribe(console.info)
+    );
     // this.subscriptions.push(
     //   this.control.valueChanges
     //     .pipe(

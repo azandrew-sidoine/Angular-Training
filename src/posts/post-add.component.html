@@ -1,1 +1,13 @@
 <input type="text" title="search form" [placeholder]="placeholder" [formControl]="state" class="post-add" />
+<span class="error" *ngIf="state.hasError('required') && state.touched && state.invalid">Ce champ est requis</span>
+<span class="error" *ngIf="state.hasError('maxlength') && state.invalid">Ce champ doit contenir au maximum {{state.getError('maxlength')?.requiredLength }}  character</span>
+<span class="error" *ngIf="state.hasError('minlength') && state.invalid">Ce champ doit contenir au minimum {{state.getError('minlength')?.requiredLength }}  character</span>
+
+<input type="text" title="search form" [placeholder]="'Contenu de la publication'" [formControl]="content"
+    class="post-add" />
+<span class="error" *ngIf="content.hasError('required') && content.touched && content.invalid">Ce champ est requis</span>
+
+<p> State Error:</p>
+<pre>{{state.errors | json}}</pre>
+<p> State is valid:</p>
+<pre>{{state.valid | json}}</pre>

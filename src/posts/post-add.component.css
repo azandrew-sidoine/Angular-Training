@@ -62,3 +62,10 @@ input[type="text"]:focus.ng-dirty.ng-invalid, input[type="text"]:focus.ng-touche
     var(--post-add-color, hsl(0, 74%, 52%)) 95%
   ) !important;
 }
+
+
+.error {
+  color: hsl(0, 74%, 52%);
+  font-size: .7rem;
+  display: inline-block;
+}
