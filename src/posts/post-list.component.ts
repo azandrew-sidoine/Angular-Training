@@ -20,7 +20,7 @@ import { Post } from './types';
   ],
 })
 export class PostListComponent {
-  @Input() posts: Post[];
+  @Input() posts!: Post[];
   @Output('post-click') postClick = new EventEmitter<Post>();
 
 

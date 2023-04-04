@@ -8,7 +8,7 @@ import {
   OnDestroy,
   Output,
 } from "@angular/core";
-import { FormBuilder, FormControl, Validators } from "@angular/forms";
+import { FormBuilder, Validators } from "@angular/forms";
 import { Subscription, filter } from "rxjs";
 
 // type StateType = {
@@ -40,21 +40,23 @@ export class PostAddComponent implements OnDestroy {
   // #endregion component output
 
   // #region Component state
-  state = new FormControl(
-    "",
-    Validators.compose([
-      Validators.required,
-      Validators.maxLength(45),
-      Validators.minLength(2),
-    ])
-  );
-  // Creation d'un control par constructeur
-  // content = new FormControl("", {
-  //   updateOn: "blur",
-  //   validators: Validators.required,
-  // }); // {'required': true}
-  content =  this.builder.control("", {
-    validators: Validators.required
+  formgroup = this.builder.group({
+    title: this.builder.control(
+      "",
+      Validators.compose([
+        Validators.required,
+        Validators.maxLength(45),
+        Validators.minLength(2),
+      ])
+    ),
+    content: this.builder.control(
+      { value: "", disabled: true },
+      {
+        validators: Validators.required,
+      }
+    ),
+    // Un group de controls peut contenir un autre group de conrol
+    other: this.builder.group({}),
   });
   // {updateOn: 'blur'}
   // );
@@ -64,35 +66,54 @@ export class PostAddComponent implements OnDestroy {
   @HostListener("keypress", ["$event"])
   onKeyPress(e: KeyboardEvent) {
     // On s'assure que le input est pas vide
-    if (this.state.invalid) {
-      // Si le champ state est invalid, marquer le champ comme touché
-      // pour permettre a la vue d'afficher les messages d'erreur à l'utilisateur
-      this.state.markAsTouched();
-      this.state.markAsDirty();
-      this.state.updateValueAndValidity();
-      return;
-    }
-    const value = (this.state.value ?? "").trim();
-    if (e.code?.toLocaleLowerCase() === "enter" && value !== "") {
-      this.dispatchValueChange();
-
-      // Réinitialize le control une fois le formulaire soumis
-      this.state.reset();
-    }
+    // if (this.state.invalid) {
+    //   // Si le champ state est invalid, marquer le champ comme touché
+    //   // pour permettre a la vue d'afficher les messages d'erreur à l'utilisateur
+    //   this.state.markAsTouched();
+    //   this.state.markAsDirty();
+    //   this.state.updateValueAndValidity();
+    //   return;
+    // }
+    // const value = (this.state.value ?? "").trim();
+    // if (e.code?.toLocaleLowerCase() === "enter" && value !== "") {
+    //   this.dispatchValueChange();
+    //   // Réinitialize le control une fois le formulaire soumis
+    //   this.state.reset();
+    // }
   }
 
   /**
    * Creates component instances
    *
    */
-  constructor(private changeRef: ChangeDetectorRef, private builder: FormBuilder) {
+  constructor(
+    private changeRef: ChangeDetectorRef,
+    private builder: FormBuilder
+  ) {
+    // this.formgroup = this.builder.group({
+    //   title: this.builder.control(
+    //     "",
+    //     Validators.compose([
+    //       Validators.required,
+    //       Validators.maxLength(45),
+    //       Validators.minLength(2),
+    //     ])
+    //   ),
+    //   content: this.builder.control(
+    //     { value: "", disabled: true },
+    //     {
+    //       validators: Validators.required,
+    //     }
+    //   ),
+    //   // Un group de controls peut contenir un autre group de conrol
+    //   other: this.builder.group({}),
+    // });
     this.subscriptions.push(
-      this.state.valueChanges
+      this.formgroup.valueChanges
         .pipe(filter((state) => typeof state !== "undefined" && state !== null))
-        .subscribe(console.info),
-      this.content.valueChanges
-        .pipe(filter((state) => typeof state !== "undefined" && state !== null))
-        .subscribe(console.info)
+        // Le `getRawValue()` a la différence du `.value` vous retourne la valeur de tous
+        // les champs mm les champs désactivés
+        .subscribe(() => console.info(this.formgroup.getRawValue()))
     );
     // this.subscriptions.push(
     //   this.control.valueChanges
@@ -140,7 +161,7 @@ export class PostAddComponent implements OnDestroy {
   // }
 
   private dispatchValueChange() {
-    this.valueChange.emit(this.state.value);
+    this.valueChange.emit(this.formgroup.get("title")?.value);
   }
 
   ngOnDestroy(): void {

@@ -1,4 +1,6 @@
 <app-post-add (valueChange)="savePost($event)"></app-post-add>
 <div class="post-list-container">
-  <app-post-list (post-click)="onPostClicked($event)" [posts]="posts$ | async"></app-post-list>
+  <ng-container *ngIf="posts$ | async as posts">
+    <app-post-list (post-click)="onPostClicked($event)" [posts]="posts"></app-post-list>
+  </ng-container>
 </div>

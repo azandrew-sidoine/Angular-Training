@@ -32,7 +32,7 @@ export class PostsService {
   get(id: string | number): Observable<Post> {
     return this.posts$.pipe(
       map((posts) => posts.find((post) => post.id.toString() === id.toString()))
-    );
+    ) as Observable<Post>;
   }
 
   getAll(): Observable<boolean> {
